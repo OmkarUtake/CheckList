@@ -1,0 +1,101 @@
+﻿@model IEnumerable<WebApplication2Crud.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Products</h2>
+
+
+
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="button" class="btn btn-success" onclick="window.location= '@Url.Action("Create", "Category")'">Add New </button>
+
+
+    <button type="button" class="btn btn-success" onclick="window.location= '@Url.Action("CategoryWise", "Product")'">View Category Wise </button>
+
+
+
+    @if (User.Identity.Name == "admin")
+    {
+
+        <button type="button" class="btn btn-danger navbar-right" style="margin-top:10px" onclick="window.location= '@Url.Action("ReportByUser", "Report")'">Generate Report</button>
+
+
+    }
+
+
+    @*<h4>Select record per pages</h4>
+    <select>
+        <option> @Html.ActionLink(5.ToString(), "Index", new { b = 5.00 })</option>
+        <option> @Html.ActionLink(10.ToString(), "Index", new { b = 10.00 })</option>
+        <option> @Html.ActionLink(15.ToString(), "Index", new { b = 15.00 })</option>
+    </select>*@
+</div>
+<br />
+<table class="table table-striped">
+    <tr>
+        <th scope="col">
+            CATEGORY
+        </th>
+        <th scope="col">
+            ITEM
+        </th>
+        <th scope="col">
+            DESCRIPTION
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <button type="button" class="btn btn-link" onclick="window.location= '@Url.Action("Edit", "Category", new { id = item.Id })'">Edit</button>
+                <button type="button" class="btn btn-link" onclick="window.location= '@Url.Action("Delete", "Category", new { id = item.Id })'">Delete</button>
+                <button type="button" class="btn btn-link" onclick="window.location= '@Url.Action("Details", "Category", new { id = item.Id })'">Details</button>
+
+
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+
+
+
+
+@{
+
+
+    double totalPages = ViewBag.TotalPages;
+
+    for (int i = 1; i <= totalPages; i++)
+    {
+
+        <ul class="pagination">
+            <li>
+                @Html.ActionLink(i.ToString(), "Index", new { a = i })
+
+            </li>
+        </ul>
+    }
+}
+
+
+
+
+
