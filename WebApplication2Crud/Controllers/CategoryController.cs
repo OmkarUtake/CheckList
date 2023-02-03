@@ -37,7 +37,7 @@ namespace WebApplication2Crud.Controllers
         }
 
 
-        [Authorize(Roles = "admin")]
+        [HttpGet]
         public async Task<ActionResult> Create()
         {
             var userid = await Database.Credentials.Where(x => x.UserName == User.Identity.Name).FirstOrDefaultAsync();
@@ -50,7 +50,7 @@ namespace WebApplication2Crud.Controllers
         }
 
 
-        [Authorize(Roles = "admin")]
+       
         [HttpPost]
         public async Task<ActionResult> Create(Category Cata)
         {

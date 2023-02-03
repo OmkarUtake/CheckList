@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WebApplication2Crud.CommonFactors;
 using WebApplication2Crud.Models;
 
 namespace WebApplication2Crud.Controllers
@@ -24,6 +25,7 @@ namespace WebApplication2Crud.Controllers
         [HttpPost]
         public ActionResult SignUp(Credential cd)
         {
+
             bool userIsUniqe = database.Credentials.Any(x => x.UserName == cd.UserName);
             bool emailIsUnique = database.Credentials.Any(x => x.EmailId == cd.EmailId);
 
@@ -31,6 +33,7 @@ namespace WebApplication2Crud.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    cd.Password = PasswordEncoder.Encode(cd.Password);
                     database.Credentials.Add(cd);
                     database.SaveChanges();
                     return View("Login");
@@ -53,7 +56,7 @@ namespace WebApplication2Crud.Controllers
 
         public ActionResult Authenticate(Credential cd)
         {
-
+            cd.Password = PasswordEncoder.Encode(cd.Password);
             var isValid = database.Credentials.AnyAsync(x => x.UserName == cd.UserName && x.Password == cd.Password).Result;
             if (isValid)
             {

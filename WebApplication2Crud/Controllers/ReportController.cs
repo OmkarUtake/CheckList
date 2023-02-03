@@ -12,7 +12,7 @@ using WebApplication2Crud.ViewModel;
 
 namespace WebApplication2Crud.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="admin")]
     public class ReportController : Controller
     {
         CategoryDbContext Db = new CategoryDbContext();
@@ -21,25 +21,36 @@ namespace WebApplication2Crud.Controllers
         public ActionResult ReportByUser()
         {
             List<Report> reportList = new List<Report>();
-            SqlConnection con = new SqlConnection(Cs);
-            SqlCommand cmd = new SqlCommand("sp_generateReport", con)
-            {
-                CommandType = System.Data.CommandType.StoredProcedure
-            };
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
 
-            while (reader.Read())
+            // SqlConnection con = new SqlConnection(Cs);
+            //SqlCommand cmd = new SqlCommand("PassworDecoder", con)
+            //{
+            //    CommandType = System.Data.CommandType.StoredProcedure
+            //};
+            //con.Open();
+            //SqlDataReader reader = cmd.ExecuteReader();
+
+            //while (reader.Read())
+            //{
+            //    Report report = new Report
+            //    {
+            //        UserName = reader.GetValue(0).ToString(),
+            //        item = reader.GetValue(1).ToString(),
+            //        Icategory = reader.GetValue(2).ToString()
+            //    };
+            //    reportList.Add(report);
+            //}
+
+
+            var data = Db.Database.SqlQuery<Report>("sp_generateReport");
+            foreach (var report in data)
             {
-                Report report = new Report
-                {
-                    UserName = reader.GetValue(0).ToString(),
-                    item = reader.GetValue(1).ToString(),
-                    Icategory = reader.GetValue(2).ToString()
-                };
-                reportList.Add(report);
+                Report obj = new Report();
+                obj.Icategory = report.Icategory;
+                obj.item = report.item;
+                obj.UserName = report.UserName;
+                reportList.Add(obj);
             }
-
 
             return View(reportList);
         }
