@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -16,6 +13,7 @@ namespace WebApplication2Crud.Controllers
     {
 
         CategoryDbContext database = new CategoryDbContext();
+
         public ActionResult SignUp()
         {
 
@@ -53,13 +51,18 @@ namespace WebApplication2Crud.Controllers
 
 
         [HttpPost]
-
         public ActionResult Authenticate(Credential cd)
         {
             cd.Password = PasswordEncoder.Encode(cd.Password);
-            var isValid = database.Credentials.AnyAsync(x => x.UserName == cd.UserName && x.Password == cd.Password).Result;
-            if (isValid)
+            var user = database.Credentials.FirstOrDefault(x => x.UserName == cd.UserName && x.Password == cd.Password);
+            if (user != null)
             {
+                cd.UserRole = user.UserRole;
+                var token = JWTHelper.CreateJWTToken(cd);
+
+
+                Response.Cookies.Set(new HttpCookie("token", token));
+
                 FormsAuthentication.SetAuthCookie(cd.UserName, false);
                 return RedirectToAction("Index", "Category");
 

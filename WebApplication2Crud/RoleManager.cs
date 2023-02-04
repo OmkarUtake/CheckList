@@ -45,6 +45,8 @@ namespace WebApplication2Crud
             var role = (from c in database.Credentials.Where(x => x.UserName == username)
                         select c.UserRole).ToArray();
 
+            
+
             return role;
         }
 

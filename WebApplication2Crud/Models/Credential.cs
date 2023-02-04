@@ -21,7 +21,7 @@ namespace WebApplication2Crud.Models
         public string Password { get; set; }
 
 
-        public string UserRole { get; set; } = "customer";
+        public string UserRole { get; set; }
 
 
     }

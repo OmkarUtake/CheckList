@@ -25,6 +25,7 @@ namespace WebApplication2Crud.Controllers
             var data = pg.IndexPagePaging(b, a, out int c);
             ViewBag.TotalPages = Math.Ceiling(c / b);
 
+
             return View(data);
         }
 
@@ -50,7 +51,7 @@ namespace WebApplication2Crud.Controllers
         }
 
 
-       
+
         [HttpPost]
         public async Task<ActionResult> Create(Category Cata)
         {
