@@ -28,9 +28,9 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        //var username = "Hello     " + @User.Identity.Name.ToUpper();
+                        var username = "Hello     " + @User.Identity.Name.ToUpper();
 
-                        <li class="navbar-right">@Html.ActionLink("Omkar", "Index", "Category")</li>
+                        <li class="navbar-right">@Html.ActionLink(username, "Index", "Category")</li>
 
                     }
                 </ul>

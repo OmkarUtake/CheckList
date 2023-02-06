@@ -22,22 +22,20 @@ namespace WebApplication2Crud
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Role;
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
 
         }
 
         protected void Application_AuthenticateRequest()
         {
-            var token = Request.Cookies["token"].Value;
+            var token = Request.Cookies["token"]?.Value;
+
+           // var token = HttpContext.Current.Request.Headers.Get("Autherization");
+
             if (token != null)
             {
                 JWTHelper.AuthenticationRequest(token);
             }
         }
-
-
-
-
     }
 }

@@ -7,6 +7,8 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Configuration;
 using WebApplication2Crud.StoreProcedures;
+using System.Security.Claims;
+using System.EnterpriseServices.CompensatingResourceManager;
 
 namespace WebApplication2Crud.Controllers
 {
@@ -41,7 +43,15 @@ namespace WebApplication2Crud.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            var userid = await Database.Credentials.Where(x => x.UserName == User.Identity.Name).FirstOrDefaultAsync();
+            var identity = User.Identity as ClaimsIdentity;
+
+            var claims = identity.Claims;
+
+            var IdentifierName = claims.Where(model => model.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+            string name = IdentifierName.Value;
+
+            // var useridentity = User.Identity.Name;
+            var userid = await Database.Credentials.Where(x => x.UserName == name).FirstOrDefaultAsync();
             Category category = new Category()
             {
                 UserId = userid.id

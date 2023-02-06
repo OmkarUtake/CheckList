@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -53,19 +54,23 @@ namespace WebApplication2Crud.Controllers
         [HttpPost]
         public ActionResult Authenticate(Credential cd)
         {
-            cd.Password = PasswordEncoder.Encode(cd.Password);
-            var user = database.Credentials.FirstOrDefault(x => x.UserName == cd.UserName && x.Password == cd.Password);
-            if (user != null)
+            if (cd.UserName != null && cd.Password != null)
             {
-                cd.UserRole = user.UserRole;
-                var token = JWTHelper.CreateJWTToken(cd);
+                cd.Password = PasswordEncoder.Encode(cd.Password);
+                var user = database.Credentials.FirstOrDefault(x => x.UserName == cd.UserName && x.Password == cd.Password);
+                if (user != null)
+                {
+                    cd.UserRole = user.UserRole;
+                    var token = JWTHelper.CreateJWTToken(cd);
+                    Response.Cookies.Set(new HttpCookie("token", token));
+                    //FormsAuthentication.SetAuthCookie(cd.UserName, false);
+                    return RedirectToAction("Index", "Category");
 
-
-                Response.Cookies.Set(new HttpCookie("token", token));
-
-                FormsAuthentication.SetAuthCookie(cd.UserName, false);
-                return RedirectToAction("Index", "Category");
-
+                }
+                else
+                {
+                    ViewBag.message = "Enter Valid User Name & Password";
+                }
             }
             else
             {
@@ -77,7 +82,16 @@ namespace WebApplication2Crud.Controllers
 
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
+            // FormsAuthentication.SignOut();
+            if (Request.Cookies["token"] != null)
+            {
+                var c = new HttpCookie("token")
+                {
+                    Expires = DateTime.Now.AddSeconds(1)
+                };
+                Response.Cookies.Add(c);
+
+            }
             return View("Login");
         }
     }

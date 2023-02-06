@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
@@ -12,25 +13,30 @@ using WebApplication2Crud.Models;
 
 namespace WebApplication2Crud.CommonFactors
 {
+
     public static class JWTHelper
     {
-        public readonly static byte[] _signinKey = Encoding.UTF8.GetBytes("MbQeThWmZq4t7w!z");
-
+        public static SymmetricSecurityKey _signinkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MbQeThWmZq4t7w!z"));
         public static string CreateJWTToken(Credential userinfo)
         {
-            var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, userinfo.UserName));
-            claims.Add(new Claim(ClaimTypes.Role, userinfo.UserRole));
-            var id = new ClaimsIdentity(claims);
-            var h = new JwtSecurityTokenHandler();
+            var credentials = new SigningCredentials(_signinkey, SecurityAlgorithms.HmacSha256);
+            var issuer = "https://localhost:44341/";
+            var audiance = "https://localhost:44341/";
+            var claims = new[] {
 
-            var token = h.CreateToken(new SecurityTokenDescriptor()
-            {
-                Expires = DateTime.UtcNow.AddMinutes(10),
-                Subject = id,
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(_signinKey), SecurityAlgorithms.HmacSha256)
-            });
-            return h.WriteToken(token);
+                new Claim(ClaimTypes.NameIdentifier,userinfo.UserName),
+                new Claim(ClaimTypes.Role,userinfo.UserRole)
+
+             };
+            var newToken = new JwtSecurityToken();
+            var token = new JwtSecurityToken(
+                    issuer,
+                    audiance,
+                    claims,
+                    expires: DateTime.Now.AddMinutes(2),
+                    signingCredentials: credentials
+                    );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
 
@@ -42,25 +48,21 @@ namespace WebApplication2Crud.CommonFactors
                 ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha256 },
                 ValidateAudience = false,
                 ValidateIssuer = false,
-                IssuerSigningKey = new SymmetricSecurityKey(_signinKey),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MbQeThWmZq4t7w!z")),
                 ValidateIssuerSigningKey = true,
                 ValidateLifetime = false
             }, out var securityToken);
             var jwt = securityToken as JwtSecurityToken;
-            var id = new ClaimsIdentity(jwt.Claims, "jwt", "name", "role");
+            var id = new ClaimsIdentity(jwt.Claims, "jwt", ClaimTypes.NameIdentifier, ClaimTypes.Role);
             return new ClaimsPrincipal(id);
         }
 
         public static void AuthenticationRequest(string token)
         {
-            try
-            {
-                //var token = HttpContext.Current.Request.Headers.Get("Autherization");
-                var principal = ValidatejwtToken(token);
-                HttpContext.Current.User = principal;
-                Thread.CurrentPrincipal = principal;
-            }
-            catch { }
+            //var token = HttpContext.Current.Request.Headers.Get("Autherization");
+            var principal = ValidatejwtToken(token);
+            HttpContext.Current.User = principal;
+            Thread.CurrentPrincipal = principal;
         }
     }
 }

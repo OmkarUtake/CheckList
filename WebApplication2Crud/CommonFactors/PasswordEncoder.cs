@@ -12,7 +12,6 @@ namespace WebApplication2Crud.CommonFactors
         {
             byte[] EncData = ASCIIEncoding.ASCII.GetBytes(password);
             string encryptedpass = Convert.ToBase64String(EncData);
-
             return encryptedpass;
         }
     }
