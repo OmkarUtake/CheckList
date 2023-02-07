@@ -2,13 +2,11 @@
 using System.Linq;
 using System.Web.Mvc;
 using WebApplication2Crud.Models;
-using System.Data.SqlClient;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Configuration;
 using WebApplication2Crud.StoreProcedures;
 using System.Security.Claims;
-using System.EnterpriseServices.CompensatingResourceManager;
 
 namespace WebApplication2Crud.Controllers
 {
@@ -26,7 +24,6 @@ namespace WebApplication2Crud.Controllers
             PagingProcedure pg = new PagingProcedure();
             var data = pg.IndexPagePaging(b, a, out int c);
             ViewBag.TotalPages = Math.Ceiling(c / b);
-
 
             return View(data);
         }
@@ -47,7 +44,7 @@ namespace WebApplication2Crud.Controllers
 
             var claims = identity.Claims;
 
-            var IdentifierName = claims.Where(model => model.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
+            var IdentifierName = claims.Where(model => model.Type == ClaimTypes.Name).FirstOrDefault();
             string name = IdentifierName.Value;
 
             // var useridentity = User.Identity.Name;

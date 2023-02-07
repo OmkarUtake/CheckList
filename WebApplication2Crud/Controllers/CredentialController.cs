@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using WebApplication2Crud.CommonFactors;
 using WebApplication2Crud.Models;
 
@@ -36,6 +34,10 @@ namespace WebApplication2Crud.Controllers
                     database.Credentials.Add(cd);
                     database.SaveChanges();
                     return View("Login");
+                }
+                else
+                {
+                    ViewBag.message = "Please input correct details";
                 }
             }
             else

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using WebGrease.Configuration;
-using System.Web.Http;
 using WebApplication2Crud.CommonFactors;
 using System.Web.Helpers;
 using System.Security.Claims;
+using System;
+using System.Web.Http.Results;
+using WebApplication2Crud.Models;
 
 namespace WebApplication2Crud
 {
@@ -22,7 +19,7 @@ namespace WebApplication2Crud
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
 
         }
 
@@ -30,12 +27,18 @@ namespace WebApplication2Crud
         {
             var token = Request.Cookies["token"]?.Value;
 
-           // var token = HttpContext.Current.Request.Headers.Get("Autherization");
+            // var token = HttpContext.Current.Request.Headers.Get("Autherization");
 
             if (token != null)
             {
                 JWTHelper.AuthenticationRequest(token);
+
             }
+            //else if (!Request.IsAuthenticated)
+            //{
+            //    Response.Redirect("Credential/Login");
+            //}
+
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
@@ -24,11 +22,11 @@ namespace WebApplication2Crud.CommonFactors
             var audiance = "https://localhost:44341/";
             var claims = new[] {
 
-                new Claim(ClaimTypes.NameIdentifier,userinfo.UserName),
+                new Claim(ClaimTypes.Name,userinfo.UserName),
                 new Claim(ClaimTypes.Role,userinfo.UserRole)
 
              };
-            var newToken = new JwtSecurityToken();
+
             var token = new JwtSecurityToken(
                     issuer,
                     audiance,
@@ -38,11 +36,10 @@ namespace WebApplication2Crud.CommonFactors
                     );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-
         public static IPrincipal ValidatejwtToken(string token)
         {
             var h = new JwtSecurityTokenHandler();
+
             h.ValidateToken(token, new TokenValidationParameters()
             {
                 ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha256 },
@@ -53,10 +50,9 @@ namespace WebApplication2Crud.CommonFactors
                 ValidateLifetime = false
             }, out var securityToken);
             var jwt = securityToken as JwtSecurityToken;
-            var id = new ClaimsIdentity(jwt.Claims, "jwt", ClaimTypes.NameIdentifier, ClaimTypes.Role);
+            var id = new ClaimsIdentity(jwt.Claims, "jwt", ClaimTypes.Name, ClaimTypes.Role);
             return new ClaimsPrincipal(id);
         }
-
         public static void AuthenticationRequest(string token)
         {
             //var token = HttpContext.Current.Request.Headers.Get("Autherization");

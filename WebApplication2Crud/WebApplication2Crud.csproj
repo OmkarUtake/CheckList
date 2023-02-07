@@ -286,7 +286,7 @@
     <Compile Include="Models\CategoryDbContext.cs" />
     <Compile Include="Models\Credential.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoleManager.cs" />
+    <Compile Include="CommonFactors\RoleManager.cs" />
     <Compile Include="StoreProcedures\PagingProcedure.cs" />
     <Compile Include="ViewModel\Report.cs" />
   </ItemGroup>
