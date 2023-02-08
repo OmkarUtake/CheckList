@@ -18,14 +18,18 @@ namespace WebApplication2Crud.Controllers
         {
             List<Category> list = new List<Category>();
 
+
+
             var query = await
                 (from p in database.Categories
                  select p.Icategory).Distinct().ToListAsync();
 
             foreach (var item in query)
             {
-                Category obj = new Category();
-                obj.Icategory = item;
+                Category obj = new Category
+                {
+                    Icategory = item
+                };
                 list.Add(obj);
             }
             return View(list);

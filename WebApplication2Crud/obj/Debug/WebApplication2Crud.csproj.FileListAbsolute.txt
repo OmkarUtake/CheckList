@@ -142,3 +142,4 @@ C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\System.Tex
 C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\System.Text.Json.xml
 C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\System.ValueTuple.xml
+C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\obj\Debug\WebApplication2Crud.Migrations.DateTime.resources

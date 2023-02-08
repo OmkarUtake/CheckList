@@ -26,18 +26,12 @@ namespace WebApplication2Crud
         protected void Application_AuthenticateRequest()
         {
             var token = Request.Cookies["token"]?.Value;
-
-            // var token = HttpContext.Current.Request.Headers.Get("Autherization");
-
+            //var token = HttpContext.Current.Request.Headers["Autherization"];
             if (token != null)
             {
                 JWTHelper.AuthenticationRequest(token);
-
             }
-            //else if (!Request.IsAuthenticated)
-            //{
-            //    Response.Redirect("Credential/Login");
-            //}
+
 
         }
     }

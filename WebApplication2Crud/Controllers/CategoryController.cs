@@ -4,29 +4,25 @@ using System.Web.Mvc;
 using WebApplication2Crud.Models;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Configuration;
 using WebApplication2Crud.StoreProcedures;
 using System.Security.Claims;
+using WebApplication2Crud.BuisnessLayer.Interfaces;
+using WebApplication2Crud.BuisnessLayer.Clasees;
 
 namespace WebApplication2Crud.Controllers
 {
     [Authorize]
     public class CategoryController : Controller
-
     {
-        readonly string Cs = ConfigurationManager.ConnectionStrings["CategoryDbContext"].ConnectionString;
         readonly CategoryDbContext Database = new CategoryDbContext();
-
-
-
         public ActionResult Index(double b = 5, int a = 1)
         {
-            PagingProcedure pg = new PagingProcedure();
-            var data = pg.IndexPagePaging(b, a, out int c);
+            IPaging paging = new PagingProcedure();
+            var data = paging.IndexPagePaging(b, a, out int c);
             ViewBag.TotalPages = Math.Ceiling(c / b);
-
             return View(data);
         }
+
 
         [HttpGet]
         public async Task<ActionResult> Details(int id)
@@ -41,32 +37,23 @@ namespace WebApplication2Crud.Controllers
         public async Task<ActionResult> Create()
         {
             var identity = User.Identity as ClaimsIdentity;
-
             var claims = identity.Claims;
-
-            var IdentifierName = claims.Where(model => model.Type == ClaimTypes.Name).FirstOrDefault();
+            var IdentifierName = claims.Where(model => model.Type == ClaimTypes.Name).SingleOrDefault();
             string name = IdentifierName.Value;
-
-            // var useridentity = User.Identity.Name;
-            var userid = await Database.Credentials.Where(x => x.UserName == name).FirstOrDefaultAsync();
-            Category category = new Category()
-            {
-                UserId = userid.id
-            };
+            ICreate create = new Create();
+            var category = await create.UserIdentity(name);
 
             return View(category);
         }
 
 
-
         [HttpPost]
         public async Task<ActionResult> Create(Category Cata)
         {
-
             if (ModelState.IsValid)
             {
-                Database.Categories.Add(Cata);
-                await Database.SaveChangesAsync();
+                ICreate create = new Create();
+                await create.AddProductAsync(Cata);
                 return RedirectToAction("Index");
             }
             return View();
@@ -76,7 +63,7 @@ namespace WebApplication2Crud.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var details = await Database.Categories.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var details = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
 
             return View(details);
         }
@@ -88,8 +75,8 @@ namespace WebApplication2Crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                Database.Entry(data).State = System.Data.Entity.EntityState.Modified;
-                await Database.SaveChangesAsync();
+                IEdit update = new Edit();
+                await update.Update(data);
                 return RedirectToAction("Index");
             }
             return View();
@@ -99,7 +86,7 @@ namespace WebApplication2Crud.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var details = await Database.Categories.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var details = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
             return View(details);
         }
 
@@ -108,7 +95,7 @@ namespace WebApplication2Crud.Controllers
         public async Task<ActionResult> Delete(int id, Category category)
         {
 
-            category = await Database.Categories.Where(x => x.Id == id).FirstOrDefaultAsync();
+            category = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
             Database.Categories.Remove(category);
             await Database.SaveChangesAsync();
             return RedirectToAction("Index");

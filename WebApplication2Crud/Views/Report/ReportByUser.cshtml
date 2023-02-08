@@ -16,8 +16,11 @@
         <th>
             UserName
         </th>
+        <th>
+            Date of created
+        </th>
 
-      
+
     </tr>
 
     @foreach (var item in Model)
@@ -31,6 +34,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
             </td>
 
         </tr>

@@ -4,14 +4,15 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using WebApplication2Crud.BuisnessLayer.Interfaces;
 using WebApplication2Crud.Models;
 
 namespace WebApplication2Crud.StoreProcedures
 {
 
-    public class PagingProcedure
+    public class PagingProcedure : IPaging
     {
-        CategoryDbContext db = new CategoryDbContext();
+        readonly CategoryDbContext db = new CategoryDbContext();
 
 
         public List<Category> IndexPagePaging(double b, int a, out int dataCount)

@@ -12,12 +12,12 @@ using WebApplication2Crud.ViewModel;
 
 namespace WebApplication2Crud.Controllers
 {
-    [Authorize(Roles ="admin")]
+    [Authorize]
     public class ReportController : Controller
     {
         CategoryDbContext Db = new CategoryDbContext();
         readonly string Cs = ConfigurationManager.ConnectionStrings["CategoryDbContext"].ConnectionString;
-
+        [Authorize(Roles = "admin")]
         public ActionResult ReportByUser()
         {
             List<Report> reportList = new List<Report>();
@@ -49,6 +49,7 @@ namespace WebApplication2Crud.Controllers
                 obj.Icategory = report.Icategory;
                 obj.item = report.item;
                 obj.UserName = report.UserName;
+                obj.Date = report.Date;
                 reportList.Add(obj);
             }
 

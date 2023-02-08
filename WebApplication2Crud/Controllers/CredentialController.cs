@@ -59,7 +59,7 @@ namespace WebApplication2Crud.Controllers
             if (cd.UserName != null && cd.Password != null)
             {
                 cd.Password = PasswordEncoder.Encode(cd.Password);
-                var user = database.Credentials.FirstOrDefault(x => x.UserName == cd.UserName && x.Password == cd.Password);
+                var user = database.Credentials.SingleOrDefault(x => x.UserName == cd.UserName && x.Password == cd.Password);
                 if (user != null)
                 {
                     cd.UserRole = user.UserRole;

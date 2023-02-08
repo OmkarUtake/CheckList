@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2Crud.Models
 {
@@ -16,9 +17,10 @@ namespace WebApplication2Crud.Models
         [Required(ErrorMessage = "Reuiured")]
         public string Description { get; set; }
 
-       
+        public DateTime Date { get; set; }
+
         public int UserId { get; set; }
 
-   
+
     }
 }

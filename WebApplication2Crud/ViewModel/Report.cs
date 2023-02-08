@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2Crud.ViewModel
 {
@@ -9,5 +10,7 @@ namespace WebApplication2Crud.ViewModel
         public string Icategory { get; set; }
         public string item { get; set; }
         public string UserName { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }
