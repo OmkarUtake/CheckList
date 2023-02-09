@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication2Crud.BuisnessLayer.User.Interfaces;
 using WebApplication2Crud.CommonFactors;
 using WebApplication2Crud.Models;
 
@@ -10,6 +11,11 @@ namespace WebApplication2Crud.Controllers
     [RequireHttps]
     public class CredentialController : Controller
     {
+        private readonly IRegisterUser _registerUser;
+        public CredentialController(IRegisterUser registerUser)
+        {
+            _registerUser = registerUser;
+        }
 
         CategoryDbContext database = new CategoryDbContext();
 
@@ -22,7 +28,6 @@ namespace WebApplication2Crud.Controllers
         [HttpPost]
         public ActionResult SignUp(Credential cd)
         {
-
             bool userIsUniqe = database.Credentials.Any(x => x.UserName == cd.UserName);
             bool emailIsUnique = database.Credentials.Any(x => x.EmailId == cd.EmailId);
 
@@ -46,6 +51,19 @@ namespace WebApplication2Crud.Controllers
             }
             return View("SignUp");
         }
+
+
+        //public ActionResult SignUp(Credential cd)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        ViewBag.message = _registerUser.RegisterUserDetails(cd);
+        //        return View("Index", "Category");
+
+        //    }
+        //    return View("SignUp");
+        //}
+
 
         public ActionResult Login()
         {

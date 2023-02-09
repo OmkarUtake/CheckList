@@ -2,23 +2,32 @@
 using System.Linq;
 using System.Web.Mvc;
 using WebApplication2Crud.Models;
-using System.Data.Entity;
 using System.Threading.Tasks;
-using WebApplication2Crud.StoreProcedures;
 using System.Security.Claims;
 using WebApplication2Crud.BuisnessLayer.Interfaces;
-using WebApplication2Crud.BuisnessLayer.Clasees;
 
 namespace WebApplication2Crud.Controllers
 {
     [Authorize]
     public class CategoryController : Controller
     {
-        readonly CategoryDbContext Database = new CategoryDbContext();
+        private readonly ICreate _create;
+        private readonly IEdit _edit;
+        private readonly IPaging _paging;
+        private readonly IDetails _details;
+        private readonly IDelete _delete;
+        public CategoryController(ICreate create, IEdit edit, IPaging paging, IDetails details, IDelete delete)
+        {
+            _create = create;
+            _edit = edit;
+            _paging = paging;
+            _details = details;
+            _delete = delete;
+        }
+
         public ActionResult Index(double b = 5, int a = 1)
         {
-            IPaging paging = new PagingProcedure();
-            var data = paging.IndexPagePaging(b, a, out int c);
+            var data = _paging.IndexPagePaging(b, a, out int c);
             ViewBag.TotalPages = Math.Ceiling(c / b);
             return View(data);
         }
@@ -27,8 +36,7 @@ namespace WebApplication2Crud.Controllers
         [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
-            var details = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
-
+            var details = await _details.ProductDetail(id);
             return View(details);
         }
 
@@ -40,9 +48,8 @@ namespace WebApplication2Crud.Controllers
             var claims = identity.Claims;
             var IdentifierName = claims.Where(model => model.Type == ClaimTypes.Name).SingleOrDefault();
             string name = IdentifierName.Value;
-            ICreate create = new Create();
-            var category = await create.UserIdentity(name);
 
+            var category = await _create.UserIdentity(name);
             return View(category);
         }
 
@@ -52,8 +59,7 @@ namespace WebApplication2Crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                ICreate create = new Create();
-                await create.AddProductAsync(Cata);
+                await _create.AddProductAsync(Cata);
                 return RedirectToAction("Index");
             }
             return View();
@@ -63,8 +69,7 @@ namespace WebApplication2Crud.Controllers
         [HttpGet]
         public async Task<ActionResult> Edit(int id)
         {
-            var details = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
-
+            var details = await _details.ProductDetail(id);
             return View(details);
         }
 
@@ -75,8 +80,7 @@ namespace WebApplication2Crud.Controllers
         {
             if (ModelState.IsValid)
             {
-                IEdit update = new Edit();
-                await update.Update(data);
+                await _edit.Update(data);
                 return RedirectToAction("Index");
             }
             return View();
@@ -86,7 +90,7 @@ namespace WebApplication2Crud.Controllers
         [HttpGet]
         public async Task<ActionResult> Delete(int id)
         {
-            var details = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
+            var details = await _details.ProductDetail(id);
             return View(details);
         }
 
@@ -94,12 +98,8 @@ namespace WebApplication2Crud.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(int id, Category category)
         {
-
-            category = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
-            Database.Categories.Remove(category);
-            await Database.SaveChangesAsync();
+            await _delete.DeleteItem(id, category);
             return RedirectToAction("Index");
-
         }
     }
 }
