@@ -31,15 +31,14 @@ namespace WebApplication2Crud.CommonFactors
                     issuer,
                     audiance,
                     claims,
-                    expires: DateTime.Now.AddMinutes(2),
+                    expires: DateTime.Now.AddMinutes(20),
                     signingCredentials: credentials
                     );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        public static IPrincipal ValidatejwtToken(string token)
+        public static ClaimsPrincipal ValidatejwtToken(string token)
         {
             var h = new JwtSecurityTokenHandler();
-
             h.ValidateToken(token, new TokenValidationParameters()
             {
                 ValidAlgorithms = new[] { SecurityAlgorithms.HmacSha256 },
@@ -58,7 +57,7 @@ namespace WebApplication2Crud.CommonFactors
             //var token = HttpContext.Current.Request.Headers.Get("Autherization");
             var principal = ValidatejwtToken(token);
             HttpContext.Current.User = principal;
-            Thread.CurrentPrincipal = principal;
+            Thread.CurrentPrincipal = principal;//need to work
         }
     }
 }

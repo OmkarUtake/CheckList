@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2Crud.Models
 {
@@ -15,7 +16,6 @@ namespace WebApplication2Crud.Models
 
         [Required(ErrorMessage = "Password required")]
         public string Password { get; set; }
-
 
         public string UserRole { get; set; }
 

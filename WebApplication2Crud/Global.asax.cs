@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System;
 using System.Web.Http.Results;
 using WebApplication2Crud.Models;
+using System.Web;
 
 namespace WebApplication2Crud
 {
@@ -14,14 +15,12 @@ namespace WebApplication2Crud
     {
         protected void Application_Start()
         {
-
             AreaRegistration.RegisterAllAreas();
             UnityConfig.RegisterComponents();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
-
         }
 
         protected void Application_AuthenticateRequest()
@@ -32,8 +31,15 @@ namespace WebApplication2Crud
             {
                 JWTHelper.AuthenticationRequest(token);
             }
-
-
         }
+
+        //protected void Application_AuthenticateResponse()
+        //{
+        //    var context = new HttpContextWrapper(Context);
+        //    if (Context.Response.StatusCode == 401)
+        //    {
+        //        context.Response.Redirect("https://localhost:44341/");
+        //    }
+        //}
     }
 }

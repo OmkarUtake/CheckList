@@ -8,7 +8,7 @@ using WebApplication2Crud.BuisnessLayer.Interfaces;
 
 namespace WebApplication2Crud.Controllers
 {
-    [Authorize]
+
     public class CategoryController : Controller
     {
         private readonly ICreate _create;
@@ -32,7 +32,6 @@ namespace WebApplication2Crud.Controllers
             return View(data);
         }
 
-
         [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
@@ -40,7 +39,7 @@ namespace WebApplication2Crud.Controllers
             return View(details);
         }
 
-
+        [Authorize(Roles = "admin,customer")]
         [HttpGet]
         public async Task<ActionResult> Create()
         {
@@ -48,11 +47,9 @@ namespace WebApplication2Crud.Controllers
             var claims = identity.Claims;
             var IdentifierName = claims.Where(model => model.Type == ClaimTypes.Name).SingleOrDefault();
             string name = IdentifierName.Value;
-
             var category = await _create.UserIdentity(name);
             return View(category);
         }
-
 
         [HttpPost]
         public async Task<ActionResult> Create(Category Cata)
@@ -72,7 +69,6 @@ namespace WebApplication2Crud.Controllers
             var details = await _details.ProductDetail(id);
             return View(details);
         }
-
 
         [Authorize(Roles = "admin")]
         [HttpPost]

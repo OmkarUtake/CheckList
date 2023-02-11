@@ -1,6 +1,8 @@
 using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
+using WebApplication2Crud.BuisnessLayer.AdminReport.Classes;
+using WebApplication2Crud.BuisnessLayer.AdminReport.Interfaces;
 using WebApplication2Crud.BuisnessLayer.Clasees;
 using WebApplication2Crud.BuisnessLayer.Interfaces;
 using WebApplication2Crud.BuisnessLayer.Product.Classes;
@@ -24,11 +26,8 @@ namespace WebApplication2Crud
             container.RegisterType<IShowCategory, ShowCategory>();
             container.RegisterType<IShowCategoryItem, ShowCategoryItem>();
             container.RegisterType<IRegisterUser, RegisterUser>();
-
-
-
-
-
+            container.RegisterType<IAuthentication, Authentication>();
+            container.RegisterType<IReport, GenerateReport>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

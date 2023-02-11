@@ -1,28 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Web.Mvc;
+using WebApplication2Crud.BuisnessLayer.AdminReport.Interfaces;
 using WebApplication2Crud.Models;
 using WebApplication2Crud.ViewModel;
 
 namespace WebApplication2Crud.Controllers
 {
-    [Authorize]
+
     public class ReportController : Controller
     {
-        public ReportController()
-        {
+        // readonly string Cs = ConfigurationManager.ConnectionStrings["CategoryDbContext"].ConnectionString;
 
+
+        private readonly IReport _report;
+        public ReportController(IReport report)
+        {
+            _report = report;
         }
         CategoryDbContext Db = new CategoryDbContext();
 
         [Authorize(Roles = "admin")]
+        [HttpGet]
         public ActionResult ReportByUser()
         {
+            //List<Report> reportList = new List<Report>();
 
-
-            // readonly string Cs = ConfigurationManager.ConnectionStrings["CategoryDbContext"].ConnectionString;
-            // SqlConnection con = new SqlConnection(Cs);
-            //SqlCommand cmd = new SqlCommand("PassworDecoder", con)
+            //SqlConnection con = new SqlConnection(Cs);
+            //SqlCommand cmd = new SqlCommand("sp_generateReport", con)
             //{
             //    CommandType = System.Data.CommandType.StoredProcedure
             //};
@@ -40,19 +46,8 @@ namespace WebApplication2Crud.Controllers
             //    reportList.Add(report);
             //}
 
-            List<Report> reportList = new List<Report>();
-            var data = Db.Database.SqlQuery<Report>("sp_generateReport");
-            foreach (var report in data)
-            {
-                Report obj = new Report
-                {
-                    Icategory = report.Icategory,
-                    item = report.item,
-                    UserName = report.UserName,
-                    Date = report.Date
-                };
-                reportList.Add(obj);
-            }
+
+            var reportList = _report.Report();
 
             return View(reportList);
         }

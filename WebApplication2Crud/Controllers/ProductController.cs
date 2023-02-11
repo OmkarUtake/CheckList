@@ -9,7 +9,7 @@ using WebApplication2Crud.Models;
 
 namespace WebApplication2Crud.Controllers
 {
-    [Authorize]
+
     public class ProductController : Controller
     {
         private readonly IShowCategory _showCategory;

@@ -198,6 +198,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="BuisnessLayer\AdminReport\Classes\GenerateReport.cs" />
+    <Compile Include="BuisnessLayer\AdminReport\Interfaces\IReport.cs" />
     <Compile Include="BuisnessLayer\Category\Classes\Create.cs" />
     <Compile Include="BuisnessLayer\Category\Classes\Delete.cs" />
     <Compile Include="BuisnessLayer\Category\Classes\Details.cs" />
@@ -211,7 +213,9 @@
     <Compile Include="BuisnessLayer\Product\Classes\ShowCategoryItem.cs" />
     <Compile Include="BuisnessLayer\Product\Interfaces\IShowCategory.cs" />
     <Compile Include="BuisnessLayer\Product\Interfaces\IShowCategoryItem.cs" />
+    <Compile Include="BuisnessLayer\User\Classes\Authentication.cs" />
     <Compile Include="BuisnessLayer\User\Classes\RegisterUser.cs" />
+    <Compile Include="BuisnessLayer\User\Interfaces\IAuthentication.cs" />
     <Compile Include="BuisnessLayer\User\Interfaces\IRegisterUser.cs" />
     <Compile Include="CommonFactors\JWTHelper.cs" />
     <Compile Include="CommonFactors\PasswordEncoder.cs" />
@@ -366,7 +370,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="StoreProcedures\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

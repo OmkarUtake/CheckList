@@ -7,9 +7,8 @@ using WebApplication2Crud.Models;
 
 namespace WebApplication2Crud.BuisnessLayer.User.Interfaces
 {
-    public interface IRegisterUser
+    public interface IAuthentication
     {
-        bool IsExist(Credential cd);
-        void RegisterUserDetails(Credential cd);
+        bool IsValidUser(Credential cd, out string userToken);
     }
 }

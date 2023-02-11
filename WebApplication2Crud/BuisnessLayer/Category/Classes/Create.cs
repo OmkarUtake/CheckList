@@ -21,10 +21,9 @@ namespace WebApplication2Crud.BuisnessLayer.Clasees
             Database.Categories.Add(category);
             await Database.SaveChangesAsync();
         }
-
         public async Task<Category> UserIdentity(string name)
         {
-            // var useridentity = User.Identity.Name;     //used for from authentication
+            // var useridentity = User.Identity.Name;     //used for form authentication
             var userid = await Database.Credentials.Where(x => x.UserName == name).FirstOrDefaultAsync();
             Category category = new Category()
             {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using WebApplication2Crud.BuisnessLayer.Interfaces;
 using WebApplication2Crud.Models;
 
@@ -17,7 +14,6 @@ namespace WebApplication2Crud.BuisnessLayer.Clasees
             category = await Database.Categories.Where(x => x.Id == id).SingleOrDefaultAsync();
             Database.Categories.Remove(category);
             await Database.SaveChangesAsync();
-
         }
 
     }

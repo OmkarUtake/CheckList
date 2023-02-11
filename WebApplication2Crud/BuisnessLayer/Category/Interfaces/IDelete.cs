@@ -9,6 +9,6 @@ namespace WebApplication2Crud.BuisnessLayer.Interfaces
 {
     public interface IDelete
     {
-        Task DeleteItem(int id,Category category);
+        Task DeleteItem(int id, Category category);
     }
 }
