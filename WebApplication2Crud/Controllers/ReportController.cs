@@ -23,6 +23,7 @@ namespace WebApplication2Crud.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpGet]
+        [Route("UserReport")]
         public ActionResult ReportByUser()
         {
             //List<Report> reportList = new List<Report>();

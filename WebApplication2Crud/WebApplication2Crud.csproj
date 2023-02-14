@@ -314,6 +314,10 @@
     <Compile Include="Migrations\202302080944486_DateTime.designer.cs">
       <DependentUpon>202302080944486_DateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302130448149_updatedefault.cs" />
+    <Compile Include="Migrations\202302130448149_updatedefault.designer.cs">
+      <DependentUpon>202302130448149_updatedefault.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryDbContext.cs" />
@@ -450,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302080944486_DateTime.resx">
       <DependentUpon>202302080944486_DateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302130448149_updatedefault.resx">
+      <DependentUpon>202302130448149_updatedefault.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

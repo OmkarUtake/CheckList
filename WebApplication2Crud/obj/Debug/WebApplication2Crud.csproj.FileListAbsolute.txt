@@ -148,3 +148,4 @@ C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\Unity.Cont
 C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\Unity.Mvc5.dll
 C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\Unity.Abstractions.pdb
 C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\bin\Unity.Container.pdb
+C:\Users\Nimap\New folder\WebApplication2Crud\WebApplication2Crud\obj\Debug\WebApplication2Crud.Migrations.updatedefault.resources
