@@ -27,7 +27,6 @@ namespace WebApplication2Crud.Controllers
 
         public async Task<ActionResult> CategoryWiseView(string category)
         {
-
             var query = await _showCategoryItem.CategoryItem(category);
             ViewBag.CName = category;
             return View(query);

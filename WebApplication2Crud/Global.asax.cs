@@ -26,20 +26,13 @@ namespace WebApplication2Crud
         protected void Application_AuthenticateRequest()
         {
             var token = Request.Cookies["token"]?.Value;
-            //var token = HttpContext.Current.Request.Headers["Autherization"];
             if (token != null)
             {
                 JWTHelper.AuthenticationRequest(token);
             }
         }
 
-        //protected void Application_AuthenticateResponse()
-        //{
-        //    var context = new HttpContextWrapper(Context);
-        //    if (Context.Response.StatusCode == 401)
-        //    {
-        //        context.Response.Redirect("https://localhost:44341/");
-        //    }
-        //}
+
+
     }
 }

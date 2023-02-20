@@ -5,9 +5,11 @@ using WebApplication2Crud.Models;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using WebApplication2Crud.BuisnessLayer.Interfaces;
+using WebApplication2Crud.CommonFactors;
 
 namespace WebApplication2Crud.Controllers
 {
+    [CustomExceptionFilter]
 
     public class CategoryController : Controller
     {

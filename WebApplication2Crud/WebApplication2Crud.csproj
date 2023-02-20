@@ -217,6 +217,8 @@
     <Compile Include="BuisnessLayer\User\Classes\RegisterUser.cs" />
     <Compile Include="BuisnessLayer\User\Interfaces\IAuthentication.cs" />
     <Compile Include="BuisnessLayer\User\Interfaces\IRegisterUser.cs" />
+    <Compile Include="CommonFactors\CustFilter.cs" />
+    <Compile Include="CommonFactors\ExceptionFilter.cs" />
     <Compile Include="CommonFactors\JWTHelper.cs" />
     <Compile Include="CommonFactors\PasswordEncoder.cs" />
     <Compile Include="Controllers\CategoryController.cs" />

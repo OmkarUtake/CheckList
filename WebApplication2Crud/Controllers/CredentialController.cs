@@ -43,6 +43,7 @@ namespace WebApplication2Crud.Controllers
         }
 
         [HttpPost]
+        
         public ActionResult Authenticate(Credential cd)
         {
             var isValid = _authentication.IsValidUser(cd, out string userToken);
