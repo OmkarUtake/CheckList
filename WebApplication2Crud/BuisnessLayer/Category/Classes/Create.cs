@@ -14,12 +14,13 @@ namespace WebApplication2Crud.BuisnessLayer.Clasees
 
     public class Create : ICreate
     {
-        readonly CategoryDbContext Database = new CategoryDbContext();
+        private readonly CategoryDbContext Database = new CategoryDbContext();
 
         public async Task AddProductAsync(Category category)
         {
             Database.Categories.Add(category);
             await Database.SaveChangesAsync();
+            System.GC.Collect();
         }
         public async Task<Category> UserIdentity(string name)
         {

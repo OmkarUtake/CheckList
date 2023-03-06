@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2Crud.BuisnessLayer.User.Interfaces;
-using WebApplication2Crud.CommonFactors;
 using WebApplication2Crud.Models;
 
 namespace WebApplication2Crud.Controllers
@@ -43,7 +41,6 @@ namespace WebApplication2Crud.Controllers
         }
 
         [HttpPost]
-        
         public ActionResult Authenticate(Credential cd)
         {
             var isValid = _authentication.IsValidUser(cd, out string userToken);
@@ -58,7 +55,6 @@ namespace WebApplication2Crud.Controllers
                 return View("Login");
             }
         }
-
 
         public ActionResult Logout()
         {

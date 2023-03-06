@@ -20,5 +20,7 @@ namespace WebApplication2Crud.Models
         public string UserRole { get; set; }
 
 
+
+
     }
 }

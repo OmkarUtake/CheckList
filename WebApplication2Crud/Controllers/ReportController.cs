@@ -4,6 +4,7 @@ using WebApplication2Crud.CommonFactors;
 
 namespace WebApplication2Crud.Controllers
 {
+
     public class ReportController : Controller
     {
         private readonly IReport _report;
@@ -13,8 +14,8 @@ namespace WebApplication2Crud.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
         [Route("Report")]
+        [Authorize(Roles = "admin")]
         [CustFilter]
         public ActionResult ReportByUser()
         {

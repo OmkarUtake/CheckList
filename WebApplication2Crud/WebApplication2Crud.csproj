@@ -320,6 +320,22 @@
     <Compile Include="Migrations\202302130448149_updatedefault.designer.cs">
       <DependentUpon>202302130448149_updatedefault.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303011018153_createby.cs" />
+    <Compile Include="Migrations\202303011018153_createby.designer.cs">
+      <DependentUpon>202303011018153_createby.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303011024180_createbyDrop.cs" />
+    <Compile Include="Migrations\202303011024180_createbyDrop.designer.cs">
+      <DependentUpon>202303011024180_createbyDrop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303011106487_newone.cs" />
+    <Compile Include="Migrations\202303011106487_newone.designer.cs">
+      <DependentUpon>202303011106487_newone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303060516568_newloginmodified.cs" />
+    <Compile Include="Migrations\202303060516568_newloginmodified.designer.cs">
+      <DependentUpon>202303060516568_newloginmodified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryDbContext.cs" />
@@ -459,6 +475,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302130448149_updatedefault.resx">
       <DependentUpon>202302130448149_updatedefault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303011018153_createby.resx">
+      <DependentUpon>202303011018153_createby.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303011024180_createbyDrop.resx">
+      <DependentUpon>202303011024180_createbyDrop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303011106487_newone.resx">
+      <DependentUpon>202303011106487_newone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303060516568_newloginmodified.resx">
+      <DependentUpon>202303060516568_newloginmodified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

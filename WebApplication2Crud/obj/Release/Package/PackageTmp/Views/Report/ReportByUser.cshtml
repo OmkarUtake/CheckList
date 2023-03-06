@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication2Crud.ViewModel.Report>
+@{
+    ViewBag.Title = "ReportByUser";
+}
+<h4>
+    @ViewBag.message2
+</h4>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            CATEGORY
+        </th>
+        <th>
+            ITEM
+        </th>
+        <th>
+            UserName
+        </th>
+        <th>
+            Date of created
+        </th>
+
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+        </tr>
+    }
+
+
+</table>
+
+
+
+
+

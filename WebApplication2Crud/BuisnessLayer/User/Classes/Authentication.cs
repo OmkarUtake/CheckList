@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Linq;
 using WebApplication2Crud.BuisnessLayer.User.Interfaces;
 using WebApplication2Crud.CommonFactors;
 using WebApplication2Crud.Models;
@@ -28,6 +23,7 @@ namespace WebApplication2Crud.BuisnessLayer.User.Classes
                     //FormsAuthentication.SetAuthCookie(cd.UserName, false);
                     return true;
                 }
+
                 userToken = null;
                 return false;
             }

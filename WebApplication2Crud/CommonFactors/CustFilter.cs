@@ -8,14 +8,13 @@ namespace WebApplication2Crud.CommonFactors
 {
     public class CustFilter : FilterAttribute, IActionFilter
     {
-        public void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            filterContext.Controller.ViewBag.message2 = "Report Generated Successfully...!";
-        }
-
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
+        }
+        public void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            filterContext.Controller.ViewBag.message2 = "Report Generated Successfully...!";
         }
     }
 }

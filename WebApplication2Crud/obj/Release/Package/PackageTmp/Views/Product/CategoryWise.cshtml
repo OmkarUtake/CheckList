@@ -1,0 +1,37 @@
+﻿
+@model IEnumerable<WebApplication2Crud.Models.Category>
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Categories</h2>
+
+
+<table class="table table-striped">
+    <tr>    <th scope="col">CATEGORY</th>  <th scope="col">View All Products</th>  </tr>
+
+
+    @{
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Icategory</td>
+                <td> @Html.ActionLink("View", "CategoryWiseView", new { category = item.Icategory }) </td>
+
+
+
+            </tr>
+        }
+    }
+
+
+</table>
+
+<button type="button" class="btn btn-primary" onclick="window.location= '@Url.Action("Index", "Category")'">Back</button>
+
+
+
+
